@@ -26,11 +26,4 @@ void drawPoint(float x, float y, float noiseFactor){
 
 }
 
-//to screencap all frames
-void keyPressed(){
-  if (keyCode == ENTER){
-  save("screen-####.jpg");
-  }
-}
-
 
