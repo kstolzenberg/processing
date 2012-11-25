@@ -1,7 +1,9 @@
+//ATTEMPT AT 3D NOISE TRANSLATION
+
 float xstart, xnoise, ynoise;
 
 void setup() {
-  size(1000,1000);
+  size(1000,1000,P3D);
   smooth();
   background(255);
   strokeWeight(1);
@@ -28,8 +30,7 @@ void drawPoint(float x, float y, float noiseFactor){
   translate(x,y);
   rotate(noiseFactor*radians(360));
   stroke(0,120);
-  ellipse(0,0,50,20); 
-  //this can change to be line, rec, circle etc
+  box(5,5,10);
   popMatrix();
   }
 
