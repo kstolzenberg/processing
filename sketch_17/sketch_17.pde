@@ -27,8 +27,8 @@ void drawPoint(float x, float y, float noiseFactor){
   pushMatrix();
   translate(x,y);
   rotate(noiseFactor*radians(360));
-  stroke(127,127);
-  line(0,0,20,0);
+  stroke(104,35,0);
+  rect(0,0,20,5);
   popMatrix();
   }
 
