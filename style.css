@@ -1,0 +1,112 @@
+@font-face {
+  font-family: 'Londrina Outline';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Londrina Outline'), local('LondrinaOutline-Regular'), url(http://themes.googleusercontent.com/static/fonts/londrinaoutline/v1/lls08GOa1eT74p072l1AWNNNRtILQnhF8IuY18ihom0.woff) format('woff');
+}
+@font-face {
+  font-family: 'Amatic SC';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Amatic SC Regular'), local('AmaticSC-Regular'), url(http://themes.googleusercontent.com/static/fonts/amaticsc/v3/DPPfSFKxRTXvae2bKDzp5LO3LdcAZYWl9Si6vvxL-qU.woff) format('woff');
+}
+@font-face {
+  font-family: 'Crete Round';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Crete Round'), local('CreteRound-Regular'), url(http://themes.googleusercontent.com/static/fonts/creteround/v2/ZCcPJiCGOzh84o2siPk48brIa-7acMAeDBVuclsi6Gc.woff) format('woff');
+}
+@font-face {
+  font-family: 'Quattrocento Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Quattrocento Sans'), local('QuattrocentoSans'), url(http://themes.googleusercontent.com/static/fonts/quattrocentosans/v5/efd6FGWWGX5Z3ztwLBrG9coBJSyBiVuloIc8IXLz46o.woff) format('woff');
+}
+
+
+body {
+color: #000;
+font-family:Quattrocento Sans, Arial;
+font-size:10px;
+}
+
+body a:-webkit-any-link{
+color:#000;
+text-decoration:none;
+}
+
+body:before {
+content: "";
+position: fixed;
+top: -15px;
+left: 0;
+width: 100%;
+height: 15px;
+-webkit-box-shadow: 0px 0px 15px rgba(0,0,0,.5);
+-moz-box-shadow: 0px 0px 15px rgba(0,0,0,.5);
+box-shadow: 0px 0px 15px rgba(0,0,0,.5);
+z-index: 100;
+}
+
+header{
+font-family: Amatic SC;
+font-size: 50px;
+color:rgba(0,0,0,.9);
+text-align: center;
+width: 100%;
+height:250px;
+line-height: 250px; 
+}
+
+footer{
+position: relative;
+margin-top: -100px; /* negative value of footer height */
+height: 100px;
+line-height:100px;
+clear:both;
+width: 100%;
+font-family: Quattrocento Sans;
+font-size:10px;
+text-align: center;
+background-color: rgba(100,100,100,.1);
+}
+
+footer .head {
+font-weight:bold;
+}
+
+#content{
+margin-left:50px;
+margin-right: 50px; 
+width:100%;
+padding-left:5%;
+padding-right:5%;
+padding-top:0px;
+clear:both;
+}
+
+ol {
+	list-style-type: none;
+	padding: 0px;
+	margin: 0px;
+  clear: both;
+}
+
+ol.thumb-grid li {
+  float: left;
+	width: 20%;
+	margin: 0 1% 1% 0;
+	}
+
+ol.thumb-grid li a img {
+	width: 100%;
+	}	
+
+
+ul {
+list-style-type: none;
+}
+
+
+
+
