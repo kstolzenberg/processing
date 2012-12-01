@@ -1,14 +1,14 @@
 import processing.opengl.*;
 
-size(500,300,OPENGL);
-background(240);
-stroke(0,127);
-strokeWeight(3);
-fill(255,100);
+size(500,500,OPENGL);
+background(255);
+stroke(255,127);
+strokeWeight(1);
+fill(80);
 smooth();
 sphereDetail(5);
 
-translate(250,150,-150);
+translate(250,250,-150);
 sphere(200);
 
-saveFrame("screen-##.jpg");
+saveFrame("screen-#.jpg");
