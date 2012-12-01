@@ -5,12 +5,12 @@ void setup(){
   size(500, 500);
   frameRate(24);
   smooth();
-  background(194,250,176);
+  background(255);
   centX = width/2;
   centY = height/2;
-  stroke(220,170,50);
+  stroke(80);
   strokeWeight(1);
-  fill(194,250,176,25);
+  fill(255,40);
 }
   
 void draw(){

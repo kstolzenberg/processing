@@ -17,6 +17,9 @@ void setup (){
   }
 }
 
+void draw(){
+}
+
 void drawPoint(float x, float y, float noiseFactor){
   pushMatrix();
   translate(x*noiseFactor*4,y*noiseFactor*4,-y);
@@ -24,6 +27,13 @@ void drawPoint(float x, float y, float noiseFactor){
   ellipse(0,0,edgeSize,edgeSize);
   popMatrix();
 
+}
+
+
+void keyPressed(){
+  if (keyCode == ENTER){
+  saveFrame("screen-##.jpg");
+  }
 }
 
 

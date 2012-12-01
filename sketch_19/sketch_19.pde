@@ -26,7 +26,7 @@ void draw(){
   
   xnoise=xstart;
   ynoise=ystart;
-  ;[
+ 
   for (int y=0; y<=height; y+=5){
     ynoise +=0.1;
     //size control
