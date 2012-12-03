@@ -61,7 +61,7 @@ line-height: 250px;
 }
 
 footer{
-position: absolute;
+position: relative;
 margin-top: -100px; /* negative value of footer height */
 height: 100px;
 line-height:100px;
@@ -71,13 +71,6 @@ font-family: Quattrocento Sans;
 font-size:10px;
 text-align: center;
 background-color: rgba(100,100,100,.15);
-bottom:0px;
-
-}
-
-footer:before{
-content:"";
-clear: both;
 }
 
 footer .head {
