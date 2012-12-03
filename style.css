@@ -23,16 +23,11 @@
   src: local('Quattrocento Sans'), local('QuattrocentoSans'), url(http://themes.googleusercontent.com/static/fonts/quattrocentosans/v5/efd6FGWWGX5Z3ztwLBrG9coBJSyBiVuloIc8IXLz46o.woff) format('woff');
 }
 
-html{
-  position: relative;
-  min-height: 100%;
-}
 
 body {
 color: #000;
 font-family:Quattrocento Sans, Arial;
 font-size:10px;
-margin:0 0 100px;
 height: 100%;
 }
 
@@ -65,10 +60,10 @@ line-height: 250px;
 }
 
 footer{
-position: absolute;
+position: relative;
 left: 0;
 bottom: 0;
-/*margin-top: -100px; negative value of footer height */
+margin-top: -100px; /*negative value of footer height */
 height: 100px;
 line-height:100px;
 clear:both;
@@ -85,8 +80,7 @@ font-weight:bold;
 
 #content{
 margin-left:50px;
-margin-right: 50px;
-margin-bottom: 200px; 
+margin-right: 50px; 
 width:100%;
 padding-left:5%;
 padding-right:5%;
