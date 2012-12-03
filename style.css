@@ -72,6 +72,12 @@ font-size:10px;
 text-align: center;
 background-color: rgba(100,100,100,.15);
 bottom:0px;
+
+}
+
+footer:before{
+content:"";
+clear: both;
 }
 
 footer .head {
