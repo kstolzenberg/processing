@@ -85,12 +85,12 @@ font-weight:bold;
 
 #content{
 margin-left:50px;
-margin-right: 50px;
-margin-bottom: 100px; 
+margin-right: 50px; 
 width:100%;
 padding-left:5%;
 padding-right:5%;
 padding-top:0px;
+padding-bottom: 100px;
 clear:both;
 }
 
