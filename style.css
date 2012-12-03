@@ -74,6 +74,8 @@ text-align: center;
 background-color: rgba(100,100,100,.15);
 }
 
+/*http://mystrd.at/modern-clean-css-sticky-footer/ sticks in mobile safari but not webkit - where footer overlaps content div*/
+
 footer .head {
 font-weight:bold;
 }
