@@ -5,7 +5,7 @@ class Circle{
   float x, y;
   float radius;
   color linecol, fillcol;
-  float alph;
+  float alph;s
   
   Circle(){
   x = random(width);
