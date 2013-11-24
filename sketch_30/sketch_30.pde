@@ -4,7 +4,7 @@ Branch _trunk;
 
 void setup(){
 size(750,500);
-background(0);
+background(80);
 noFill();
 stroke(200,100);
 strokeWeight(10);
