@@ -29,6 +29,7 @@ class Tri{
     triangle(x,y,z,a,b,c);
 
     boolean touching = false;
+    print("  triangles currently in array: "+_TriArr.length+"\n");
     for (int i=0; i< _TriArr.length; i++) {
       print("  hi triangle#"+i+"\n");
       Tri otherTri = _TriArr[i];
