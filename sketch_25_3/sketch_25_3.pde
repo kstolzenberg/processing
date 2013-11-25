@@ -29,9 +29,8 @@ class Tri{
     triangle(x,y,z,a,b,c);
 
     boolean touching = false;
-    print(_TriArr.length+" ");
     for (int i=0; i< _TriArr.length; i++) {
-      print("hi"+i+" ");
+      print("  hi triangle#"+i+"\n");
       Tri otherTri = _TriArr[i];
 
       float dis = dist(x,y,otherTri.px, otherTri.py);
@@ -43,7 +42,7 @@ class Tri{
         }
       }
 
-      print("\n");
+      print("\n\n");
 
       if (touching) {
         //print("yes");
@@ -73,6 +72,7 @@ void mouseReleased(){
 void drawTri(){
   for(int i=0; i< _num; i++){
     Tri thisTri = new Tri();
+    print("printing triangle#"+i+"...\n");
     thisTri.drawMe();
     //note: the array is the way that we can assign behavior to objects..its how to keep track of them to ref
     _TriArr = (Tri[])append(_TriArr, thisTri);
