@@ -1,57 +1,51 @@
-int _num=6;
+int _num=1;
 int j= 1;
 Tri[] _TriArr = {};
 
 class Tri{
-  float x, y, z, a, b, c, k, px, py;
+  float x, y, z, a, b, c, k, center_x, center_y;
   color linecol;
   //color fillcol;
   float alph;
   
   Tri(){
-  k = 10;
+  k = 50;
   x = random(50, width-50);
   y = random(50, height-50);
   z = x + k/2;
   a = y + (sqrt(3)/2) * k;
   b = x + k;
   c = y + 0;
-  px = x + k/2; 
-  py = y + k/(2*sqrt(3));
-  linecol = color(random(255),random(255),random(255));
+  center_x = x + (k/2); 
+  center_y = y + (k/(2*sqrt(3)));
+  //linecol = color(random(255),random(255),random(255));
   //fillcol = color(0);
   }
 
   void drawMe(){
-    //fill(100);
+    fill(100);
     stroke(linecol);
-    strokeWeight(random(10));
+    strokeWeight(1);
     triangle(x,y,z,a,b,c);
 
     boolean touching = false;
     print("  triangles currently in array: "+_TriArr.length+"\n");
-    for (int i=0; i< _TriArr.length; i++) {
-      print("  hi triangle#"+i+"\n");
+    for (int i=0; i< _TriArr.length - 1; i++) {
+      print("  hi triangle#"+i+",");
       Tri otherTri = _TriArr[i];
+      Tri currTri = _TriArr[_TriArr.length - 1];
 
-      float dis = dist(x,y,otherTri.px, otherTri.py);
-      //print(dis + " " + a +"\n");
+      float dis = dist(currTri.x, currTri.y, otherTri.x, otherTri.y);
+      print(" you are "+ dis + "px away\n");
 
-      if (dis < a ){
-        touching = true;
-        //break;
+      if (dis < 50) {
+        print("  filling!\n");
+        stroke(123,50);
         }
       }
 
       print("\n\n");
 
-      if (touching) {
-        //print("yes");
-        fill(50);
-      } else {
-        //print("nope");
-        fill(200);
-      }
     }
 }
  
@@ -73,10 +67,10 @@ void mouseReleased(){
 void drawTri(){
   for(int i=0; i< _num; i++){
     Tri thisTri = new Tri();
-    print("printing triangle#"+i+"...\n");
-    thisTri.drawMe();
+    print("draw triangle#"+i+"...\n");
     //note: the array is the way that we can assign behavior to objects..its how to keep track of them to ref
     _TriArr = (Tri[])append(_TriArr, thisTri);
+    thisTri.drawMe();
   }
 }
 
