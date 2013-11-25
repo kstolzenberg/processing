@@ -2,7 +2,7 @@ int _num = 10;
 Circle[] _circleArr = {};
 
 void setup(){
-  size(10600,1000);
+  size(1000,1000);
   background(255);
   smooth();
   strokeWeight(1);
@@ -79,9 +79,9 @@ class Circle{
       }
     }
     if(touching){
-      if (alph > 0){alph --;}
+      if (alph > 0){fill(255);}
     } else{
-      if (alph < 255){alph +=2;}
+      if (alph < 255){strokeWeight(4);}
     }
     
     drawMe();

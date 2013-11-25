@@ -1,5 +1,6 @@
 int _num = 10;
 Circle[] _circleArr = {};
+//data type [] var = {}
 
 void setup(){
   size(500,500);
