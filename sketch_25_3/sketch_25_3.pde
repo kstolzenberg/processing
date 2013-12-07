@@ -1,31 +1,32 @@
-int _num=1;
+int _num=10;
 int j= 1;
 Tri[] _TriArr = {};
 
 class Tri{
-  float x, y, z, a, b, c, k, center_x, center_y;
+  float x, y, z, a, b, c, k, center_x, center_y, h;
   color linecol;
   color fillcol;
   float alph;
   
   Tri(){
   k = 50;
-  x = random(50, width-50);
-  y = random(50, height-50);
+  x = random(width);
+  y = random(height);
   z = x + k/2;
   a = y + (sqrt(3)/2) * k;
   b = x + k;
   c = y + 0;
+  h = (sqrt(3)/2) * k;
   center_x = x + (k/2); 
   center_y = y + (k/(2*sqrt(3)));
   linecol = color(random(255),random(255),random(255));
-  fillcol = color(0);
+  fillcol = 0;
   }
 
   void drawMe(){
     fill(fillcol);
     stroke(linecol);
-    strokeWeight(3);
+    strokeWeight(4);
     triangle(x,y,z,a,b,c);
   }
   
@@ -38,12 +39,12 @@ class Tri{
       Tri otherTri = _TriArr[i];
       Tri currTri = _TriArr[_TriArr.length - 1];
 
-      float dis = dist(currTri.x, currTri.y, otherTri.x, otherTri.y);
+      float dis = dist(currTri.center_x, currTri.center_y, otherTri.center_x, otherTri.center_y);
       print(" you are "+ dis + "px away\n");
 
-      if (dis < 50) {
+      if (dis < h) {
         print("  filling!\n");
-        fillcol = 200;
+        fillcol = (255);
       }
       
       drawMe();
