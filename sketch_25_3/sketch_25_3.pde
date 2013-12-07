@@ -5,7 +5,7 @@ Tri[] _TriArr = {};
 class Tri{
   float x, y, z, a, b, c, k, center_x, center_y;
   color linecol;
-  //color fillcol;
+  color fillcol;
   float alph;
   
   Tri(){
@@ -18,16 +18,19 @@ class Tri{
   c = y + 0;
   center_x = x + (k/2); 
   center_y = y + (k/(2*sqrt(3)));
-  //linecol = color(random(255),random(255),random(255));
-  //fillcol = color(0);
+  linecol = color(random(255),random(255),random(255));
+  fillcol = color(0);
   }
 
   void drawMe(){
-    fill(100);
+    fill(fillcol);
     stroke(linecol);
-    strokeWeight(1);
+    strokeWeight(3);
     triangle(x,y,z,a,b,c);
-
+  }
+  
+  
+  void checkMe(){
     boolean touching = false;
     print("  triangles currently in array: "+_TriArr.length+"\n");
     for (int i=0; i< _TriArr.length - 1; i++) {
@@ -40,8 +43,11 @@ class Tri{
 
       if (dis < 50) {
         print("  filling!\n");
-        stroke(123,50);
-        }
+        fillcol = 200;
+      }
+      
+      drawMe();
+      
       }
 
       print("\n\n");
@@ -70,7 +76,7 @@ void drawTri(){
     print("draw triangle#"+i+"...\n");
     //note: the array is the way that we can assign behavior to objects..its how to keep track of them to ref
     _TriArr = (Tri[])append(_TriArr, thisTri);
-    thisTri.drawMe();
+    thisTri.checkMe();
   }
 }
 
