@@ -2,6 +2,8 @@ int j = 1;
 int i,k;
 float x, y, r,b;
 
+//could also make each subsequent one aware of previous color by storing in an array and pulling property info
+
 void setup() {
   size(1000, 1000);
   background(255);
