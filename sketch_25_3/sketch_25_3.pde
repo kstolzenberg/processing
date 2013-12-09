@@ -1,5 +1,5 @@
 int _num=10;
-int j= 1;
+int j= 0;
 Tri[] _TriArr = {};
 
 class Tri{
