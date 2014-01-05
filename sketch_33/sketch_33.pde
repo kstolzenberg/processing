@@ -37,7 +37,7 @@ class Box2{
   }  
   
   void drawBox2(){
-    fill(247,58,10);
+    fill(247,58,10,150);
     strokeWeight(4);
     stroke(0);
     rect(x,y,w,h);
@@ -47,7 +47,7 @@ class Box2{
 
 
 void setup(){
-  size(500,500);
+  size(1000,1000);
   background(255);
   smooth();
 
@@ -56,28 +56,17 @@ void setup(){
 void draw(){}
 
 void drawArray(){
-  for(i=0; i<500-51; i=i+51+25){
-    pushMatrix();
-    Box thisBox = new Box();
-    translate(i,0);
-    thisBox.drawBox();
-    
-    Box thisBox3 = new Box();
-    translate(0, thisBox3.h+25);
-    thisBox3.drawBox();
-    
-    Box thisBox4 = new Box();
-    translate(0, thisBox4.h+25);
-    thisBox4.drawBox();
-    
-    Box2 thisBox2 = new Box2();
-    translate(0, thisBox2.h+25);
-    thisBox2.drawBox2();
-    
-    Box thisBox5 = new Box();
-    translate(0, thisBox5.h+25);
-    thisBox5.drawBox();
-    popMatrix();
+  for (int i=0; i< height; i+=100){
+    for (int j=0; j<width; j+=100){
+      pushMatrix();
+      Box thisBox = new Box();
+      Box2 thisBox2 = new Box2();
+      translate(j,i);
+      thisBox.drawBox();
+      translate(10,10);
+      thisBox2.drawBox2();
+      popMatrix();
+    }
   }
 }
 
