@@ -14,7 +14,6 @@ class Box{
     x2 = x+random(w);
     y2 = y+h;
   }
-  
   void drawBox(){
     fill(255,255,0);
     strokeWeight(4);
@@ -35,7 +34,6 @@ class Box2{
     x2 = x+w;
     y2 = y+random(h); 
   }  
-  
   void drawBox2(){
     fill(247,58,10,150);
     strokeWeight(4);
