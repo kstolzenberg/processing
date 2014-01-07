@@ -5,7 +5,7 @@ int j=0;
 int i;
 
 class Box{
-  float x,y,w,h, x2, y2;
+  float x,y,w,h, x2, y2, a,b,c,d;
   Box(){
     x = 25;
     y = 25;
