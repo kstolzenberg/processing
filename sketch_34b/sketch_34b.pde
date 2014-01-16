@@ -24,23 +24,17 @@ for(b=0; b<height+50; b+=100){
 }
 
 fill(78,91,5);
-strokeWeight(2);
+strokeWeight(6);
 for(b=0; b<height+50; b+=100){
   for(a=0; a<width+50; a+=100){
   pushMatrix();
   translate(50,50);
-  beginShape(TRIANGLE_FAN);
-  vertex(a,b);
-  vertex(a+30,b);
-  vertex(a, b+30);
-  vertex(a-30,b);
-  vertex(a,b-30);
-  vertex(a+30,b);
+  ellipse(a,b,60,40);
   endShape();
   popMatrix();
 }
 }
 
-saveFrame("tesellate.jpg");
+saveFrame("tesellate4.jpg");
 
 
