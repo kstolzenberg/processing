@@ -1,4 +1,18 @@
 /*wish list:
+  learn a bit more about 
+  more complexity with objects - like 1 door, two windows, flat roof? or sloped roof as v2.
+  more objects
+  better bounding placement with overall house 
+  move to a large grid eventually
+  more inputs like example...sizing relative etc
+  materials or hatches? siding/materials etc, woods, concrete, steel, siding
+  genetic mating - look into the nature of code!
+  
+  **goal:
+  gen all houses, throw out houses that have overlap or don't draw them
+  intorduce another window and door object
+  get materials looking more right
+  move to grids again?
 */
 
 class Window {
@@ -63,12 +77,14 @@ void drawArch(){
   myHouse.drawHouse();
 }
 
+
+
 void mouseReleased(){
   drawArch();
 }
 
 void keyPressed(){
   if(keyCode==ENTER){
-    saveFrame("output3.jpg");
+    saveFrame("output4.jpg");
   }
 }
