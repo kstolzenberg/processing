@@ -1,15 +1,19 @@
-
 //throw out overlap things
-//consider random incrementor ..like irl grid?
-//add stairs line 1/5px if y>5 for door
 // I think if you don't pass parameters in constructor, you can't change it outside of object def? ideally could just pass diff params through same window object for 1-3 instances?
 
+//globals
 int j=0;
 int i;
 int k;
 
+int randRange(int min_val, int max_val, int step){
+  int count = (max_val - min_val) / step;
+  return (int(random(0, count)) * step) + min_val;
+}
+
 class Window{
-  float a, b, c, d, m;
+  int a, b, c, d, m;
+  //float x, y, width, height, margin;
   Window(){
     a = 200;
     b = 200;
@@ -28,7 +32,7 @@ class Window{
 
 //should be tidied to eventually a part of one window object...
 class Lite{
-  float a, b, c, d, m;
+  int a, b, c, d, m;
   Lite(){
     a = 200;
     b = 200;
@@ -46,7 +50,7 @@ class Lite{
 }
 
 class Door{
-  float a, b, c, d, m;
+  int a, b, c, d, m;
   Door (){
     a = 200;
     b = 200;
@@ -66,12 +70,12 @@ class Door{
 }
 
 class House{
-  float x,y,w,h,x2,y2, x3, y3, x4, y4;
+  int x,y,w,h,x2,y2, x3, y3, x4, y4;
   Window window;
   Door door;
   Lite lite;
   
-  House(float x, float y, float w, float h, Window window, Door door, Lite lite){
+  House(int x, int y, int w, int h, Window window, Door door, Lite lite){
     this.x = 25;
     this.y = 25;
     this.w = 125;
@@ -79,12 +83,12 @@ class House{
     this.window = window;
     this.door = door;
     this.lite = lite;
-    x2 = random(this.w - window.c); 
-    y2 = random(this.h - window.d);
-    x4 = random(this.w - lite.c); 
-    y4 = random(this.h - lite.d);
-    x3 = random(this.w - door.c);
-    y3 = random(this.h - door.d);
+    x2 = int(random(this.w - window.c)); 
+    y2 = randRange(0, (this.h - window.d), 5);
+    x4 = int(random(this.w - lite.c)); 
+    y4 = randRange(0, (this.h - lite.d), 5);
+    x3 = int(random(this.w - door.c));
+    y3 = randRange(0, (this.h - door.d) , 5);
   }
   
   void drawHouse(){
@@ -98,14 +102,22 @@ class House{
     lite.b = y+y4;
     door.a = x+x3;
     door.b = y+y3;
-    //stairs - hrm the bottom incrementor isn't quite there...why 19? closest to y-offset?
-    float q = this.h-19-door.b+door.d;
-    if(door.b < this.y+this.h-5){
+
+    //stairs: have to be built from the bottom bc more true to ibc..equal steps redo with step random function, revert back to grid
+    println("house height: " + this.h);
+    float q = this.h+this.y-(door.b);
+    println("stoop length: " + q);
+    println("y-pos of bottom of door:" + door.b + door.d);
+    println(door.b);
+    println(door.d);
+
+    if(door.b < (this.y+this.h-5)){
       for(k=0; k<q; k+=5){
         strokeWeight(1);
         rect(door.a,door.b+k,door.c,5);
       }
     }
+
     window.drawWindow();
     door.drawDoor();
     lite.drawLite();
@@ -114,7 +126,7 @@ class House{
 
 
 void setup(){
-  size(1000,1000);
+  size(200,200);
   background(255);
   smooth();
 
@@ -122,7 +134,7 @@ void setup(){
 
 void draw(){}
 
-void drawArray(){
+/*void drawArray(){
   for (int i=0; i< height; i+=200){
     for (int j=0; j<width; j+=200){
       pushMatrix();
@@ -135,7 +147,16 @@ void drawArray(){
       popMatrix();
     }
   }
+}*/
+
+void drawArray(){
+   Window window = new Window();
+   Door door = new Door();
+   Lite lite = new Lite();
+   House thisHouse = new House(100,100,100,100,window,door,lite);
+   thisHouse.drawHouse();
 }
+
 
 
 void mouseReleased(){
