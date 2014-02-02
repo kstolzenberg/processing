@@ -28,7 +28,6 @@ boolean ShapeCollision(int [][] coords_for_box_A, int [][] coords_for_box_B){
   }else{
     return Touching = false;
   }
-  
 }
 
 void draw(){

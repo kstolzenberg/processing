@@ -39,9 +39,7 @@ class Bux{
 
 
 boolean ShapeCollision(int shape1,int shape2){
-  getPositionArray( shape1){
-  int [][] positionArray = { {shape1.x, shape1.y}, {shape1.x+shape1.w,shape1.y}, {shape1.x,shape1.y+shape1.h}, {shape1.x+shape1.w,shape1.y+shape1.h} };
-  }
+  
   
   boolean Inside = false;
   boolean Touching = false;
