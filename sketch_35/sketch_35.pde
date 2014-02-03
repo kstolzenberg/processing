@@ -22,8 +22,9 @@ class Window{
   void drawWindow(){
   stroke(0);
   strokeWeight(1);
-  fill(152,225,253);
+  fill(40,40,40);
   rect(a,b,c,d);
+  fill(152,225,253);
   rect(a+m, b+m, c-m*2, d-m*2);
   }
 }
@@ -41,8 +42,9 @@ class Lite{
   void drawLite(){
   stroke(0);
   strokeWeight(1);
-  fill(152,225,253);
+  fill(40,40,40);
   rect(a,b,c,d);
+  fill(152,225,253);
   rect(a+m, b+m, c-m*2, d-m*2);
   }
 }
@@ -90,7 +92,8 @@ class House{
   }
   
   void drawHouse(){
-    fill(26,106,123);
+    int z;
+    fill(223,204,7);
     strokeWeight(2);
     stroke(0);
     rect(x,y,w,h);
@@ -100,11 +103,17 @@ class House{
     lite.b = y+y4;
     door.a = x+x3;
     door.b = y+y3;
+    //siding
+    for(z=this.y; z<this.h+this.y;z+=10){
+      strokeWeight(.5);
+      line(this.x, z, this.x+this.w,z);
+    }
     //stairs
     float q = this.h + this.y-(door.b);
     if(door.b < (this.y+this.h-5)){
       for(k=0; k<q; k+=5){
         strokeWeight(1);
+        fill(40,40,40);
         rect(door.a,door.b+k,door.c,5);
       }
     }
