@@ -1,4 +1,4 @@
-//proto for house collisions
+//abandoned early proto for house collisions - does not work!
 
 void setup(){
   size(500,500);
@@ -44,7 +44,7 @@ boolean ShapeCollision(int shape1,int shape2){
   boolean Inside = false;
   boolean Touching = false;
   boolean [] touchArray = {};
-  getPositionArray(shape1);
+  //getPositionArray(shape1);
   
   for(i=0; i<positionArray.length;i++){
     if ((positionArray[i][i] > shape2.x && positionArray[i][i] < shape2.x+shape2.w) && (positionArray[i][i+1] > shape2.y && positionArray[i][i+1] < shape2.y+shape.h)){
@@ -55,7 +55,7 @@ boolean ShapeCollision(int shape1,int shape2){
     return touchArray = (boolean)append(touchArray, Inside);
     }
     
-  if (touchArray[0] || touchArray[1] || touchArray[2] || touchArray[3] = true ){
+  if (touchArray[0] || touchArray[1] || touchArray[2] || touchArray[3] == true ){
     return Touching = true;
     }  
 }

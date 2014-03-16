@@ -1,5 +1,5 @@
-//throw out overlap things
-//globals
+//sandbox for single house object, no boolean yet
+
 int i,j,k,n;
 int l = 0;
 

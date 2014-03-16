@@ -1,10 +1,11 @@
-//proto for house collisions
+//house collisions - most basic static boolean checker based on four corners
 
 void setup(){
   size(500,500);
   background(255);
   smooth();
-  noStroke();
+  stroke(0);
+  strokeWeight(1);
   noLoop();
 }
 
@@ -31,7 +32,10 @@ boolean ShapeCollision(int [][] coords_for_box_A, int [][] coords_for_box_B){
 }
 
 void draw(){
-  int [][] coords_for_box_A = { {10, 100}, {50, 100}, {10, 200}, {50, 200} };
+  int [][] coords_for_box_A = { {50, 100}, {100, 100}, {50, 200}, {100, 200} };
   int [][] coords_for_box_B = { {20, 50}, {75, 50}, {20, 150}, {75, 150} };
+  rectMode(CORNER);
+  rect(coords_for_box_A[0][0],coords_for_box_A[0][1],coords_for_box_A[3][0],coords_for_box_A[3][1]);
+  rect(coords_for_box_B[0][0],coords_for_box_B[0][1],coords_for_box_B[3][0],coords_for_box_B[3][1]);
   println((ShapeCollision(coords_for_box_A, coords_for_box_B)));
 }

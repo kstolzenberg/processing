@@ -1,4 +1,6 @@
-//proto for house collisions
+//Not quite working!
+//proto for house collisions using basic objects and boolean checker
+
 boolean Touching = true;
  
 void setup(){
@@ -12,10 +14,10 @@ void setup(){
 class Box{
   int x,y,w,h;
   Box(){
+    w = 200;
+    h = 200;
     x = int(random(width-this.w));
     y = int(random(height-this.h));
-    w = 300;
-    h = 300;
   }
   void drawBox(){
     fill(217,17,90);
@@ -31,10 +33,10 @@ class Box{
 class Bux{
   int x,y,w,h;
   Bux(){
-    x = int(random(width-this.w));
-    y = int(random(height-this.h));
     w = 200;
     h = 200;
+    x = int(random(width-this.w));
+    y = int(random(height-this.h));
   }
   
   void drawBux(){
@@ -81,13 +83,11 @@ void draw(){
     boxB = new Bux();
     println(ShapeCollision(boxA.getArray(), boxB.getArray()));
   }
-
+  
   if (!Touching){
     boxA.drawBox();
     boxB.drawBux();
     println("they didnt touch");
-  } else {
-    println("they touched");
-  }
+  } 
 }
 

@@ -1,7 +1,9 @@
+//sandbox for unrelated recusive function
 void setup(){
   size(1150,1150);
   noStroke();
   noLoop();
+  background(255);
 }
 
 void draw(){

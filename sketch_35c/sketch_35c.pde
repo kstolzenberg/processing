@@ -10,25 +10,19 @@ void setup(){
   fill(0);
 }
 
-/*void draw(){
-  float radius = 5;
-  for(int i=0; i<width; i+=radius/2){
-    for(int j=0; j<height; j+=radius/2){
-      float size = (random(radius*2));
-       fill(255);
-       arc(random(i), random(j), size, size, random(PI*2), random(PI*2));
-       fill(0);
-       arc(random(i), random(j), size, size, random(PI*2), random(PI*2));
-    }
-  }
-}*/
-
 void draw(){
-  float radius = 10;
-  for(i=0; i<=width;i+=radius*2){
-    for(j=0; j<=height; j+=radius*2){
+  float radius = 2;
+  for(i=1; i<=width;i+=radius*2){
+    for(j=1; j<=height; j+=radius*2){
       radius++;
       ellipse(i,j,radius,radius);
     }
+  }
+}
+
+
+void keyPressed(){
+  if(keyCode==ENTER){
+    saveFrame("output.jpg");
   }
 }

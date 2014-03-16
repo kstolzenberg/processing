@@ -1,3 +1,5 @@
+//sandbox for randRange function
+
 int randRange(int min_val, int max_val, int step){
   int count = (max_val - min_val) / step;
   return (int(random(0, count)) * step) + min_val;
