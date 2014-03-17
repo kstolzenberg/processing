@@ -1,7 +1,6 @@
-//sandbox for single house object, no boolean yet
-//goal: add basic checker!
+//sandbox for single house object with basic collision detection, no dependent redraw yet
 
-boolean Touching = true;
+boolean Touching = false;
 int i,j,k,n;
 int l = 0;
 
@@ -24,7 +23,7 @@ class Window{
   void drawWindow(){
   stroke(0);
   strokeWeight(1);
-  fill(152,225,253);
+  fill(155,225,253);
   rect(a,b,c,d);
   rect(a+m, b+m, c-m*2, d-m*2);
   }
@@ -60,7 +59,8 @@ class Lite{
 }
 
 class Door{
-  int a, b, c, d, m;
+  int a, b, c, d, m, q, r;
+  //where q and r help draw the stair
   Door (){
     a = 200;
     b = 200;
@@ -76,7 +76,19 @@ class Door{
     ellipse(a+m/2,b+d/2,2,2);
     fill(152,225,253);
     rect(a+m, b+m, c-m*2, d-m*2);
+    //stairs
+    fill(80,54,68);
+    float q=200;
+    float r=250 ;
+    //q = door at bottom, no stair, r = door at 1 step; both will get rewritten by the house objecy
+    if(this.b < r){
+      for(k=0; k<this.q-this.d; k+=5){
+        strokeWeight(1);
+        rect(this.a,this.b+this.d+k,this.c,5);
+      }
+    }
   }
+  
   int [][] getArray(){
   int [][] coords_for_Door = { {this.a, this.b}, {this.a+this.c,this.b}, {this.a,this.b+this.d}, {this.a+this.c,this.b+this.d}  };
   return coords_for_Door;
@@ -116,22 +128,15 @@ class House{
     lite.b = y+y4;
     door.a = x+x3;
     door.b = y+y3;
-    //stairs
-    float q = this.h + this.y-(door.b);
-    if(door.b < (this.y+this.h-5)){
-      for(k=0; k<q; k+=5){
-        strokeWeight(1);
-        rect(door.a,door.b+k,door.c,5);
-      }
-    }
-    //window.drawWindow();
-    //door.drawDoor();
+    door.q = this.h-(door.b) + this.y;
+    door.r = this.y+this.h-5;
     
-    if (!Touching){
-      window.drawWindow();
-      door.drawDoor();
-      println("they didnt touch");
-    }    
+    println("lite-door touch:"+ShapeCollision(lite.getArray(), door.getArray()));
+    println("lite-window touch:"+ShapeCollision(lite.getArray(), window.getArray()));
+    println("door-window touch:"+ShapeCollision(door.getArray(), window.getArray()));
+ 
+    window.drawWindow();
+    door.drawDoor(); 
     lite.drawLite();
   }
 }
@@ -147,13 +152,13 @@ void setup(){
 void draw(){
 }
 
-//need to check window-door, window-lite, lite-door
+//this boolean doesn't work when one shape is completely within the bounds of another...works best with corners.
 boolean ShapeCollision(int [][] coords_for_Window, int [][] coords_for_Door){
   int i;
   boolean Inside;
   boolean [] touchArr = {};
   for (i=0; i<coords_for_Window.length; i++){
-    if ((coords_for_Window[i][0] > coords_for_Door[0][0] && coords_for_Window[i][0] < coords_for_Door[3][0]) && (coords_for_Window[i][1] > coords_for_Door[0][1] && coords_for_Window[i][1] < coords_for_Door[3][1])){
+    if ((coords_for_Window[i][0] >= coords_for_Door[0][0] && coords_for_Window[i][0] <= coords_for_Door[3][0]) && (coords_for_Window[i][1] >= coords_for_Door[0][1] && coords_for_Window[i][1] <= coords_for_Door[3][1])){
       Inside = true;
     } else {
       Inside = false;
@@ -167,23 +172,14 @@ boolean ShapeCollision(int [][] coords_for_Window, int [][] coords_for_Door){
   }
 }
 
-//bc of chaining may have to put the checker in the house object...in the house draw method? yup - this version crashes!!!
 void drawArray(){
   Window window = new Window();
   Door door = new Door();
   Lite lite = new Lite();
   House thisHouse = new House(100,100,100,100,window,door,lite);
-  println(ShapeCollision(window.getArray(), door.getArray()));
-  
-  //this is getting caught in the while loop - note that in the example, you only had to reinitalize the object bc that was where the position was changing.
-  //here the position of the object is related to the random generated in the HOUSE intialization.
-    while (Touching){
-    println("RETRY");
-    thisHouse = new House(100,100,100,100,window,door,lite);
-    println(ShapeCollision(window.getArray(), door.getArray()));
-  }
-  
   thisHouse.drawHouse();
+  //collision detection works, now to redraw? previous didn't work bc the checker on the object never changed, change happed in the house definition
+  //rework while loop and if (!touching) for this different position case.
 }
 
 void mouseReleased(){
