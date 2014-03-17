@@ -1,5 +1,6 @@
-//Not quite working!
 //proto for house collisions using basic objects and boolean checker
+//note: inequalites should include "=" for very tightly constrained cases but then need a break
+//lets try and wrap this into the other proto...the goal is not perfection but generally not odd.
 
 boolean Touching = true;
  

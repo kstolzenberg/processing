@@ -116,7 +116,7 @@ class House{
     lite.b = y+y4;
     door.a = x+x3;
     door.b = y+y3;
-    //stairs
+    //create stairs
     float q = this.h + this.y-(door.b);
     if(door.b < (this.y+this.h-5)){
       for(k=0; k<q; k+=5){
@@ -124,15 +124,46 @@ class House{
         rect(door.a,door.b+k,door.c,5);
       }
     }
-    //window.drawWindow();
-    //door.drawDoor();
+
+    //check overlaps of nested shapes
+    /*boolean ShapeCollision(int [][] window.coords_for_Window, int [][] door.coords_for_Door){
+      int i;
+      boolean Inside;
+      boolean [] touchArr = {}; 
+      
+      for (i=0; i<window.coords_for_Window.length; i++){
+        if ( (window.coords_for_Window[i][0] > door.coords_for_Door[0][0] && window.coords_for_Window[i][0] < door.coords_for_Door[3][0]) && (window.coords_for_Window[i][1] > door.coords_for_Door[0][1] && window.coords_for_Window[i][1] < door.coords_for_Door[3][1]) ){
+          Inside = true;
+        } else {
+          Inside = false;
+        }
+        touchArr = (boolean[])append(touchArr, Inside);
+      }
+      
+      if (touchArr[0] || touchArr [1] || touchArr[2] || touchArr[3] == true){
+        return Touching = true;
+      }else{
+        return Touching = false;
+      }
+    }
     
+    println( ShapeCollision( window.getArray(), door.getArray() ) );
+    while (Touching){
+      println("RETRY");
+      window = new Window();
+      door = new Door();
+      println( ShapeCollision(window.getArray(), door.getArray() ) );
+    }
     if (!Touching){
       window.drawWindow();
       door.drawDoor();
       println("they didnt touch");
-    }    
+    }*/
+    //eventually check overlaps
+    //window.drawWindow();
+    //door.drawDoor();
     lite.drawLite();
+    printArray(window.getArray[]);
   }
 }
 
@@ -141,48 +172,17 @@ void setup(){
   size(500,500);
   background(255);
   smooth();
-
 }
 
 void draw(){
 }
 
-//need to check window-door, window-lite, lite-door
-boolean ShapeCollision(int [][] coords_for_Window, int [][] coords_for_Door){
-  int i;
-  boolean Inside;
-  boolean [] touchArr = {};
-  for (i=0; i<coords_for_Window.length; i++){
-    if ((coords_for_Window[i][0] > coords_for_Door[0][0] && coords_for_Window[i][0] < coords_for_Door[3][0]) && (coords_for_Window[i][1] > coords_for_Door[0][1] && coords_for_Window[i][1] < coords_for_Door[3][1])){
-      Inside = true;
-    } else {
-      Inside = false;
-    }
-    touchArr = (boolean[])append(touchArr, Inside);
-  }  
-  if (touchArr[0] || touchArr [1] || touchArr[2] || touchArr[3] == true){
-    return Touching = true;    
-  }else{
-    return Touching = false;
-  }
-}
-
-//bc of chaining may have to put the checker in the house object...in the house draw method? yup - this version crashes!!!
 void drawArray(){
   Window window = new Window();
   Door door = new Door();
   Lite lite = new Lite();
   House thisHouse = new House(100,100,100,100,window,door,lite);
-  println(ShapeCollision(window.getArray(), door.getArray()));
-  
-  //this is getting caught in the while loop - note that in the example, you only had to reinitalize the object bc that was where the position was changing.
-  //here the position of the object is related to the random generated in the HOUSE intialization.
-    while (Touching){
-    println("RETRY");
-    thisHouse = new House(100,100,100,100,window,door,lite);
-    println(ShapeCollision(window.getArray(), door.getArray()));
-  }
-  
+  //may need to repass in through?
   thisHouse.drawHouse();
 }
 

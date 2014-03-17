@@ -59,7 +59,7 @@ class Door{
     m = 5;
   }
   void drawDoor(){
-    fill(232,39,25);
+    fill(97,25,0);
     stroke(0);
     strokeWeight(1);
     rect(a,b,c,d);
@@ -93,7 +93,7 @@ class House{
   
   void drawHouse(){
     int z;
-    fill(223,204,7);
+    fill(254,88,30);
     strokeWeight(2);
     stroke(0);
     rect(x,y,w,h);
