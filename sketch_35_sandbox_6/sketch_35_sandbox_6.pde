@@ -21,8 +21,8 @@ void setup(){
 class Box{
   int x,y,w,h;
   Box(){
-    w = 400;
-    h = 200;
+    w = 100;
+    h = 100;
     x = int(random(width-this.w));
     y = int(random(height-this.h));
   }
@@ -45,8 +45,8 @@ class Box{
 class Bux{
   int x,y,w,h;
   Bux(){
-    w = 200;
-    h = 200;
+    w = 40;
+    h = 20;
     x = int(random(width-this.w));
     y = int(random(height-this.h));
   }
@@ -67,12 +67,14 @@ class Bux{
   }
 }
 
-/*boolean ShapeCollision(int [][] coords_for_box_A, int [][] coords_for_box_B){
+boolean ShapeCollision(int [][] coords_for_box_A, int [][] coords_for_box_B){
 
   boolean a_to_b;
   boolean b_to_a;
   
+  println("Coords of red box, inside green box?");
   a_to_b = ShapeCollisionOneDirection(coords_for_box_A, coords_for_box_B);
+  println("Coords of green box, inside red box?");
   b_to_a = ShapeCollisionOneDirection(coords_for_box_B, coords_for_box_A);
   
   println("a to b colliding?: "+a_to_b);
@@ -84,10 +86,10 @@ class Bux{
     return false;
   }
 
-}*/
+}
 
 
-boolean ShapeCollision(int [][] coords_for_box_A, int [][] coords_for_box_B){
+boolean ShapeCollisionOneDirection(int [][] coords_for_box_A, int [][] coords_for_box_B){
 
   // box A is pink
   // box B is green
@@ -99,26 +101,15 @@ boolean ShapeCollision(int [][] coords_for_box_A, int [][] coords_for_box_B){
   boolean y_check2;
   boolean Inside;
   boolean [] touchArr = {};
-/*print2DArray(coords_for_box_A);
-  println("box_B:");
-  print2DArray(coords_for_box_B);*/
 
   for (i=0; i<coords_for_box_A.length; i++){
 
     x_check1 = (coords_for_box_A[i][0] >= coords_for_box_B[0][0]);
     x_check2 = (coords_for_box_A[i][0] <= coords_for_box_B[3][0]);
     y_check1 = (coords_for_box_A[i][1] >= coords_for_box_B[0][1]);
-    y_check2 = (coords_for_box_A[i][1] <= coords_for_box_B[3][1]);
-    
-    /*x_check3 = (coords_for_box_B[i][0] >= coords_for_box_A[0][0]);
-    x_check4 = (coords_for_box_[i][0] <= coords_for_box_B[3][0]);
-    y_check3 = (coords_for_box_A[i][1] >= coords_for_box_B[0][1]);
-    y_check4 = (coords_for_box_A[i][1] <= coords_for_box_B[3][1]);*/
-    
+    y_check2 = (coords_for_box_A[i][1] <= coords_for_box_B[3][1]);    
     
     if ((x_check1 && x_check2) && (y_check1 && y_check2)){
-      Inside = true;
-    } else if ( (coords_for_box_B[i][0] >= coords_for_box_A[0][0] && coords_for_box_B[i][0] <= coords_for_box_A[3][0]) && (coords_for_box_B[i][1] >= coords_for_box_A[0][1] && coords_for_box_B[i][1] >= coords_for_box_A[3][1]) ) {
       Inside = true;
     } else {
       Inside = false;
@@ -127,7 +118,6 @@ boolean ShapeCollision(int [][] coords_for_box_A, int [][] coords_for_box_B){
     touchArr = (boolean[])append(touchArr, Inside);
   }
   
-  println("Coords of red box, inside green box?");
   println(touchArr);
   
   if (touchArr[0] || touchArr [1] || touchArr[2] || touchArr[3]){
@@ -139,9 +129,12 @@ boolean ShapeCollision(int [][] coords_for_box_A, int [][] coords_for_box_B){
 
 
 void draw(){
+  boolean collision = true;
+
   Box boxA = new Box();
   Bux boxB = new Bux();
-  println(ShapeCollision(boxA.getArray(), boxB.getArray()));
+  collision = ShapeCollision(boxA.getArray(), boxB.getArray());
+  println("collision? "+collision);
   boxA.drawBox();
   boxB.drawBux();
 
