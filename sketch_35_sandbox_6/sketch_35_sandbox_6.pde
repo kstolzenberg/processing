@@ -21,8 +21,8 @@ void setup(){
 class Box{
   int x,y,w,h;
   Box(){
-    w = 100;
-    h = 100;
+    w = 200;
+    h = 200;
     x = int(random(width-this.w));
     y = int(random(height-this.h));
   }
@@ -45,8 +45,8 @@ class Box{
 class Bux{
   int x,y,w,h;
   Bux(){
-    w = 40;
-    h = 20;
+    w = 400;
+    h = 200;
     x = int(random(width-this.w));
     y = int(random(height-this.h));
   }
@@ -135,20 +135,18 @@ void draw(){
   Bux boxB = new Bux();
   collision = ShapeCollision(boxA.getArray(), boxB.getArray());
   println("collision? "+collision);
-  boxA.drawBox();
-  boxB.drawBux();
 
-  /*while (Touching){
+  while (collision){
     println("RETRY");
     boxA = new Box();
     boxB = new Bux();
-    println(ShapeCollision(boxA.getArray(), boxB.getArray()));
+    collision = ShapeCollision(boxA.getArray(), boxB.getArray());
   }
   
-  if (!Touching){
+  if (!collision){
     boxA.drawBox();
     boxB.drawBux();
     println("they didnt touch");
-  } */
+  }
 }
 
