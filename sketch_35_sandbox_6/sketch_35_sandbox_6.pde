@@ -45,7 +45,7 @@ class Box{
 class Bux{
   int x,y,w,h;
   Bux(){
-    w = 400;
+    w = 200;
     h = 200;
     x = int(random(width-this.w));
     y = int(random(height-this.h));
@@ -72,9 +72,9 @@ boolean ShapeCollision(int [][] coords_for_box_A, int [][] coords_for_box_B){
   boolean a_to_b;
   boolean b_to_a;
   
-  println("Coords of red box, inside green box?");
+  //println("Coords of red box, inside green box?");
   a_to_b = ShapeCollisionOneDirection(coords_for_box_A, coords_for_box_B);
-  println("Coords of green box, inside red box?");
+  //println("Coords of green box, inside red box?");
   b_to_a = ShapeCollisionOneDirection(coords_for_box_B, coords_for_box_A);
   
   println("a to b colliding?: "+a_to_b);
@@ -118,7 +118,7 @@ boolean ShapeCollisionOneDirection(int [][] coords_for_box_A, int [][] coords_fo
     touchArr = (boolean[])append(touchArr, Inside);
   }
   
-  println(touchArr);
+  //println(touchArr);
   
   if (touchArr[0] || touchArr [1] || touchArr[2] || touchArr[3]){
     return Touching = true;

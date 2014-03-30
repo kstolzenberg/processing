@@ -4,7 +4,14 @@ boolean Touching = false;
 int i,j,k,n;
 int l = 0;
 
+//debug function
+void print2DArray(int [][] arrayName){
+  for (i=0;i<arrayName.length;i++){
+    println(arrayName[i]);
+  }
+}
 
+//rounded random function
 int randRange(int min_val, int max_val, int step){
   int count = (max_val - min_val) / step;
   return (int(random(0, count)) * step) + min_val;
@@ -131,9 +138,10 @@ class House{
     door.q = this.h-(door.b) + this.y;
     door.r = this.y+this.h-5;
     
-    println("lite-door touch:"+ShapeCollision(lite.getArray(), door.getArray()));
-    println("lite-window touch:"+ShapeCollision(lite.getArray(), window.getArray()));
-    println("door-window touch:"+ShapeCollision(door.getArray(), window.getArray()));
+    //the collision check
+    boolean collision = true;
+    collision = ShapeCollision(lite.getArray(), door.getArray(), window.getArray());
+    println("collision? " + collision);
  
     window.drawWindow();
     door.drawDoor(); 
@@ -152,8 +160,37 @@ void setup(){
 void draw(){
 }
 
+boolean ShapeCollision(int [][] coords_for_Window, int [][] coords_for_Door, int [][] coords_for_Lite){
+
+  int [][][] checkShapeArr = {coords_for_Window,coords_for_Door, coords_for_Lite}; 
+  /*println("window coords:");
+  print2DArray(checkShapeArr[0]);
+  println("door coords:");
+  print2DArray(checkShapeArr[1]);*/
+  //should condense this check!
+   boolean a_to_b;
+   boolean a_to_c;
+   boolean b_to_a;
+   boolean b_to_c;
+   boolean c_to_b;
+   boolean c_to_a;
+    
+    a_to_b = ShapeCollisionOneWay(checkShapeArr[0], checkShapeArr[1]);
+    a_to_c = ShapeCollisionOneWay(checkShapeArr[0], checkShapeArr[2]);
+    b_to_a = ShapeCollisionOneWay(checkShapeArr[1], checkShapeArr[0]);
+    b_to_c = ShapeCollisionOneWay(checkShapeArr[1], checkShapeArr[2]);
+    c_to_b = ShapeCollisionOneWay(checkShapeArr[2], checkShapeArr[1]);
+    c_to_a = ShapeCollisionOneWay(checkShapeArr[2], checkShapeArr[0]);  
+  
+  if (a_to_b || a_to_c || b_to_a || b_to_c || c_to_b || c_to_a){
+    return true;
+  } else{
+    return false;
+  }
+}
+
 //this boolean doesn't work when one shape is completely within the bounds of another...works best with corners.
-boolean ShapeCollision(int [][] coords_for_Window, int [][] coords_for_Door){
+boolean ShapeCollisionOneWay(int [][] coords_for_Window, int [][] coords_for_Door){
   int i;
   boolean Inside;
   boolean [] touchArr = {};
@@ -178,8 +215,6 @@ void drawArray(){
   Lite lite = new Lite();
   House thisHouse = new House(100,100,100,100,window,door,lite);
   thisHouse.drawHouse();
-  //collision detection works, now to redraw? previous didn't work bc the checker on the object never changed, change happed in the house definition
-  //rework while loop and if (!touching) for this different position case.
 }
 
 void mouseReleased(){
