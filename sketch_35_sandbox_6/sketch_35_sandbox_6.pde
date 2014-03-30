@@ -21,7 +21,7 @@ void setup(){
 class Box{
   int x,y,w,h;
   Box(){
-    w = 200;
+    w = 100;
     h = 200;
     x = int(random(width-this.w));
     y = int(random(height-this.h));

@@ -1,7 +1,7 @@
-//sandbox for single house object with basic collision detection, no dependent redraw yet
-//SUPERCEDE BY SKETCH 7
+//same as sandbox 6 but with different order!
 
 boolean Touching = false;
+boolean collision = true;
 int i,j,k,n;
 int l = 0;
 
@@ -123,6 +123,14 @@ class House{
     y4 = randRange(0, (this.h - lite.d), 5);
     x3 = int(random(this.w - door.c));
     y3 = randRange(0, (this.h - door.d) , 5);
+    window.a = this.x+x2;
+    window.b = this.y+y2;
+    lite.a = this.x+x4;
+    lite.b = this.y+y4;
+    door.a = this.x+x3;
+    door.b = this.y+y3;
+    door.q = this.h-(door.b) + this.y;
+    door.r = this.y+this.h-5;       
   }
   
   void drawHouse(){
@@ -130,35 +138,10 @@ class House{
     strokeWeight(2);
     stroke(0);
     rect(x,y,w,h);
-    window.a = x+x2;
-    window.b = y+y2;
-    lite.a = x+x4;
-    lite.b = y+y4;
-    door.a = x+x3;
-    door.b = y+y3;
-    door.q = this.h-(door.b) + this.y;
-    door.r = this.y+this.h-5;
     
-    //the collision check
-    boolean collision = true;
-    collision = ShapeCollision(lite.getArray(), door.getArray(), window.getArray());
-    println("collision? " + collision);
-   
-   //while loop isn't stopping? how to generate new object instances inside another one? - things work when collision is true!
-    while(collision){
-      println("RETRY");
-      window = new Window();
-      door = new Door();
-      lite = new Lite();
-      collision = ShapeCollision(lite.getArray(), door.getArray(), window.getArray());
-    } 
-    
-    if (!collision){
     window.drawWindow();
-    door.drawDoor(); 
+    door.drawDoor();     
     lite.drawLite();
-    }
-    
   }
 }
 
@@ -174,12 +157,7 @@ void draw(){
 }
 
 boolean ShapeCollision(int [][] coords_for_Window, int [][] coords_for_Door, int [][] coords_for_Lite){
-
   int [][][] checkShapeArr = {coords_for_Window,coords_for_Door, coords_for_Lite}; 
-  /*println("window coords:");
-  print2DArray(checkShapeArr[0]);
-  println("door coords:");
-  print2DArray(checkShapeArr[1]);*/
   //should condense this check!
    boolean a_to_b;
    boolean a_to_c;
@@ -202,6 +180,7 @@ boolean ShapeCollision(int [][] coords_for_Window, int [][] coords_for_Door, int
   }
 }
 
+
 //this boolean doesn't work when one shape is completely within the bounds of another...works best with corners.
 boolean ShapeCollisionOneWay(int [][] coords_for_Window, int [][] coords_for_Door){
   int i;
@@ -222,13 +201,31 @@ boolean ShapeCollisionOneWay(int [][] coords_for_Window, int [][] coords_for_Doo
   }
 }
 
+
 void drawArray(){
   Window window = new Window();
   Door door = new Door();
   Lite lite = new Lite();
   House thisHouse = new House(100,100,100,100,window,door,lite);
-  thisHouse.drawHouse();
+  
+  collision = ShapeCollision(lite.getArray(), door.getArray(), window.getArray());
+  println("Collision? " + collision);
+  
+  while(collision){
+  println("RETRY");
+  window = new Window();
+  door = new Door();
+  lite = new Lite();
+  thisHouse = new House(100,100,100,100,window,door,lite);
+  collision = ShapeCollision(lite.getArray(), door.getArray(), window.getArray());
+  } 
+  
+  if (!collision){
+    thisHouse.drawHouse();
+    println("They didn't touch");
+  }
 }
+
 
 void mouseReleased(){
   drawArray();
