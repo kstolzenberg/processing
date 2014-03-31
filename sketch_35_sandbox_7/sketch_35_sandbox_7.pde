@@ -1,4 +1,4 @@
-//same as sandbox 6 but with different order!
+//success! now to fix the collision edge case - entirely inside!
 
 boolean Touching = false;
 boolean collision = true;

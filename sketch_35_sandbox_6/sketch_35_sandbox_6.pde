@@ -22,7 +22,7 @@ class Box{
   int x,y,w,h;
   Box(){
     w = 100;
-    h = 200;
+    h = 300;
     x = int(random(width-this.w));
     y = int(random(height-this.h));
   }
@@ -36,7 +36,11 @@ class Box{
     {this.x, this.y},
     {this.x+this.w,this.y},
     {this.x,this.y+this.h},
-    {this.x+this.w,this.y+this.h}
+    {this.x+this.w,this.y+this.h},
+    //+ waypoints
+    {this.x+this.w/2,this.y},
+    
+    {this.x+this.w/2,this.y+this.h},
   };
   return coords_for_box_A;
   }
@@ -45,7 +49,7 @@ class Box{
 class Bux{
   int x,y,w,h;
   Bux(){
-    w = 200;
+    w = 300;
     h = 200;
     x = int(random(width-this.w));
     y = int(random(height-this.h));
@@ -118,7 +122,6 @@ boolean ShapeCollisionOneDirection(int [][] coords_for_box_A, int [][] coords_fo
     touchArr = (boolean[])append(touchArr, Inside);
   }
   
-  //println(touchArr);
   
   if (touchArr[0] || touchArr [1] || touchArr[2] || touchArr[3]){
     return Touching = true;
