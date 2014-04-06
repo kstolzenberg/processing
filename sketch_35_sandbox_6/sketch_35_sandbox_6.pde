@@ -21,8 +21,8 @@ void setup(){
 class Box{
   int x,y,w,h;
   Box(){
-    w = 100;
-    h = 300;
+    w = 300;
+    h = 100;
     x = int(random(width-this.w));
     y = int(random(height-this.h));
   }
@@ -49,8 +49,8 @@ class Box{
 class Bux{
   int x,y,w,h;
   Bux(){
-    w = 300;
-    h = 200;
+    w = 200;
+    h = 300;
     x = int(random(width-this.w));
     y = int(random(height-this.h));
   }
@@ -71,11 +71,45 @@ class Bux{
   }
 }
 
-boolean ShapeCollision(int [][] coords_for_box_A, int [][] coords_for_box_B){
 
-  boolean a_to_b;
-  boolean b_to_a;
+//MIDPOINT GENERATOR AND CONCATENATOR: where count = # segments not points
+int [][] midpointGenerator(int [] point_1, int [] point_2, int count){
+  int totalLength, newSegmentLength,newPoint,xCheck,yCheck;
+  int [][] midpointArray = {};
   
+  xCheck = abs(point_1[0] - point_2[0]);
+  yCheck = abs(point_1[1] - point_2[1]);
+  
+  if(yCheck == 0){
+    totalLength = point_2[0] - point_1[0];
+    newSegmentLength = totalLength / count;  
+    for (i=1; i<count; i++){
+    newPoint = point_1[0]+newSegmentLength*i;
+    midpointArray = (int[][])append(midpointArray, new int []{newPoint, point_1[1]});
+    }     
+  }else if (xCheck == 0){
+    totalLength = point_2[1] - point_1[1];
+    newSegmentLength = totalLength / count;    
+    for (i=1; i<count; i++){
+    newPoint = point_1[1]+newSegmentLength*i;
+    midpointArray = (int[][])append(midpointArray, new int []{point_1[0], newPoint});
+    } 
+  }  
+  return midpointArray;
+}
+
+int [][] addMidpointsToShape(int[][]coords_for_shape){
+  coords_for_shape = (int[][])concat(coords_for_shape,midpointGenerator(coords_for_shape[0], coords_for_shape[1], 12));
+  coords_for_shape = (int[][])concat(coords_for_shape,midpointGenerator(coords_for_shape[1], coords_for_shape[3], 12));
+  coords_for_shape = (int[][])concat(coords_for_shape,midpointGenerator(coords_for_shape[0], coords_for_shape[2], 12));
+  coords_for_shape = (int[][])concat(coords_for_shape,midpointGenerator(coords_for_shape[2], coords_for_shape[3], 12));   
+  return coords_for_shape;
+}
+
+
+boolean ShapeCollision(int [][] coords_for_box_A, int [][] coords_for_box_B){
+  boolean a_to_b;
+  boolean b_to_a;  
   //println("Coords of red box, inside green box?");
   a_to_b = ShapeCollisionOneDirection(coords_for_box_A, coords_for_box_B);
   //println("Coords of green box, inside red box?");
@@ -92,26 +126,25 @@ boolean ShapeCollision(int [][] coords_for_box_A, int [][] coords_for_box_B){
 
 }
 
-
 boolean ShapeCollisionOneDirection(int [][] coords_for_box_A, int [][] coords_for_box_B){
 
   // box A is pink
   // box B is green
-
   int i;
-  boolean x_check1;
-  boolean y_check1;
-  boolean x_check2;
-  boolean y_check2;
+  boolean x_check1,x_check2,y_check1,y_check2;
   boolean Inside;
   boolean [] touchArr = {};
-
+  
+  addMidpointsToShape(coords_for_box_A);
+  addMidpointsToShape(coords_for_box_B);  
+  
   for (i=0; i<coords_for_box_A.length; i++){
 
     x_check1 = (coords_for_box_A[i][0] >= coords_for_box_B[0][0]);
     x_check2 = (coords_for_box_A[i][0] <= coords_for_box_B[3][0]);
     y_check1 = (coords_for_box_A[i][1] >= coords_for_box_B[0][1]);
-    y_check2 = (coords_for_box_A[i][1] <= coords_for_box_B[3][1]);    
+    y_check2 = (coords_for_box_A[i][1] <= coords_for_box_B[3][1]); 
+   
     
     if ((x_check1 && x_check2) && (y_check1 && y_check2)){
       Inside = true;

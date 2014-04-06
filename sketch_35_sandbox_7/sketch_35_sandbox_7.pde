@@ -156,7 +156,46 @@ void setup(){
 void draw(){
 }
 
+//MIDPOINT GENERATOR AND CONCATENATOR: where count = # segments not points
+int [][] midpointGenerator(int [] point_1, int [] point_2, int count){
+  int totalLength, newSegmentLength,newPoint,xCheck,yCheck;
+  int [][] midpointArray = {};
+  
+  xCheck = abs(point_1[0] - point_2[0]);
+  yCheck = abs(point_1[1] - point_2[1]);
+  
+  if(yCheck == 0){
+    totalLength = point_2[0] - point_1[0];
+    newSegmentLength = totalLength / count;  
+    for (i=1; i<count; i++){
+    newPoint = point_1[0]+newSegmentLength*i;
+    midpointArray = (int[][])append(midpointArray, new int []{newPoint, point_1[1]});
+    }     
+  }else if (xCheck == 0){
+    totalLength = point_2[1] - point_1[1];
+    newSegmentLength = totalLength / count;    
+    for (i=1; i<count; i++){
+    newPoint = point_1[1]+newSegmentLength*i;
+    midpointArray = (int[][])append(midpointArray, new int []{point_1[0], newPoint});
+    } 
+  }  
+  return midpointArray;
+}
+
+int [][] addMidpointsToShape(int[][]coords_for_shape){
+  coords_for_shape = (int[][])concat(coords_for_shape,midpointGenerator(coords_for_shape[0], coords_for_shape[1], 6));
+  coords_for_shape = (int[][])concat(coords_for_shape,midpointGenerator(coords_for_shape[1], coords_for_shape[3], 6));
+  coords_for_shape = (int[][])concat(coords_for_shape,midpointGenerator(coords_for_shape[0], coords_for_shape[2], 6));
+  coords_for_shape = (int[][])concat(coords_for_shape,midpointGenerator(coords_for_shape[2], coords_for_shape[3], 6));   
+  return coords_for_shape;
+}
+
 boolean ShapeCollision(int [][] coords_for_Window, int [][] coords_for_Door, int [][] coords_for_Lite){
+  
+  addMidpointsToShape(coords_for_Window);
+  addMidpointsToShape(coords_for_Door);
+  addMidpointsToShape(coords_for_Lite);
+  
   int [][][] checkShapeArr = {coords_for_Window,coords_for_Door, coords_for_Lite}; 
   //should condense this check!
    boolean a_to_b;
@@ -184,10 +223,17 @@ boolean ShapeCollision(int [][] coords_for_Window, int [][] coords_for_Door, int
 //this boolean doesn't work when one shape is completely within the bounds of another...works best with corners.
 boolean ShapeCollisionOneWay(int [][] coords_for_Window, int [][] coords_for_Door){
   int i;
+  boolean x_check1, x_check2, y_check1,y_check2;
   boolean Inside;
   boolean [] touchArr = {};
-  for (i=0; i<coords_for_Window.length; i++){
-    if ((coords_for_Window[i][0] >= coords_for_Door[0][0] && coords_for_Window[i][0] <= coords_for_Door[3][0]) && (coords_for_Window[i][1] >= coords_for_Door[0][1] && coords_for_Window[i][1] <= coords_for_Door[3][1])){
+  
+  for (i=0; i<coords_for_Window.length; i++){  
+    x_check1 = coords_for_Window[i][0] >= coords_for_Door[0][0];
+    x_check2 = coords_for_Window[i][0] <= coords_for_Door[3][0];
+    y_check1 = coords_for_Window[i][1] >= coords_for_Door[0][1];
+    y_check2 = coords_for_Window[i][1] <= coords_for_Door[3][1];
+    
+    if ((x_check1 && x_check2) && (y_check1 && y_check2)){
       Inside = true;
     } else {
       Inside = false;
