@@ -8,7 +8,7 @@ void print2DArray(int [][] arrayName){
     println(arrayName[i]);
   }
 }
-
+//pass the points not the whole array, 
 //begin function - where count = #line segments
 //x-coord only!
 int [][] midpointGenerator(int [][] coords_for_point_1, int [][] coords_for_point_2, int count){
@@ -32,6 +32,6 @@ void setup() {
 
 void draw() {
   int [][] coords_for_point_1 = {{60,100},{180,100},{50,200},{150,200}};
-  print2DArray(midpointGenerator(coords_for_point_1, coords_for_point_1, 2));
+  print2DArray(midpointGenerator(coords_for_point_1, coords_for_point_1, 4));
 }
 
