@@ -1,4 +1,4 @@
-//success! now to fix the collision edge case - entirely inside!
+//success! collision detection fully working!
 
 boolean Touching = false;
 boolean collision = true;
@@ -99,7 +99,7 @@ class Door{
   }
   
   int [][] getArray(){
-  int [][] coords_for_Door = { {this.a, this.b}, {this.a+this.c,this.b}, {this.a,this.b+this.d+(this.r-this.q)}, {this.a+this.c,this.b+this.d+(this.r-this.q)} };
+  int [][] coords_for_Door = { {this.a, this.b}, {this.a+this.c,this.b}, {this.a,this.b+this.d+(this.r)}, {this.a+this.c,this.b+this.d+(this.r)} };
   return coords_for_Door;
   }
 }
