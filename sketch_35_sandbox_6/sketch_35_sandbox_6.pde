@@ -1,5 +1,7 @@
 //proto for house collisions using basic objects and boolean checker
 //HAD TO TEST THE REVERSE AS WELL - THIS WILL BE DIFFICULT WITH 3 OBJECTS
+
+//NEEDS DEBUGGING PRINTS
 int i;
 
 void print2DArray(int [][] arrayName){
@@ -21,8 +23,8 @@ void setup(){
 class Box{
   int x,y,w,h;
   Box(){
-    w = 300;
-    h = 100;
+    w = 200;
+    h = 300;
     x = int(random(width-this.w));
     y = int(random(height-this.h));
   }
@@ -49,8 +51,8 @@ class Box{
 class Bux{
   int x,y,w,h;
   Bux(){
-    w = 200;
-    h = 300;
+    w = 300;
+    h = 100;
     x = int(random(width-this.w));
     y = int(random(height-this.h));
   }
@@ -99,10 +101,10 @@ int [][] midpointGenerator(int [] point_1, int [] point_2, int count){
 }
 
 int [][] addMidpointsToShape(int[][]coords_for_shape){
-  coords_for_shape = (int[][])concat(coords_for_shape,midpointGenerator(coords_for_shape[0], coords_for_shape[1], 12));
-  coords_for_shape = (int[][])concat(coords_for_shape,midpointGenerator(coords_for_shape[1], coords_for_shape[3], 12));
-  coords_for_shape = (int[][])concat(coords_for_shape,midpointGenerator(coords_for_shape[0], coords_for_shape[2], 12));
-  coords_for_shape = (int[][])concat(coords_for_shape,midpointGenerator(coords_for_shape[2], coords_for_shape[3], 12));   
+  coords_for_shape = (int[][])concat(coords_for_shape,midpointGenerator(coords_for_shape[0], coords_for_shape[1], 4));
+  coords_for_shape = (int[][])concat(coords_for_shape,midpointGenerator(coords_for_shape[1], coords_for_shape[3], 4));
+  coords_for_shape = (int[][])concat(coords_for_shape,midpointGenerator(coords_for_shape[0], coords_for_shape[2], 4));
+  coords_for_shape = (int[][])concat(coords_for_shape,midpointGenerator(coords_for_shape[2], coords_for_shape[3], 4));   
   return coords_for_shape;
 }
 
@@ -114,7 +116,6 @@ boolean ShapeCollision(int [][] coords_for_box_A, int [][] coords_for_box_B){
   a_to_b = ShapeCollisionOneDirection(coords_for_box_A, coords_for_box_B);
   //println("Coords of green box, inside red box?");
   b_to_a = ShapeCollisionOneDirection(coords_for_box_B, coords_for_box_A);
-  
   println("a to b colliding?: "+a_to_b);
   println("b to a colliding?: "+b_to_a);
   
@@ -134,9 +135,6 @@ boolean ShapeCollisionOneDirection(int [][] coords_for_box_A, int [][] coords_fo
   boolean x_check1,x_check2,y_check1,y_check2;
   boolean Inside;
   boolean [] touchArr = {};
-  
-  addMidpointsToShape(coords_for_box_A);
-  addMidpointsToShape(coords_for_box_B);  
   
   for (i=0; i<coords_for_box_A.length; i++){
 
@@ -166,17 +164,25 @@ boolean ShapeCollisionOneDirection(int [][] coords_for_box_A, int [][] coords_fo
 
 void draw(){
   boolean collision = true;
+  int [][] coords_for_boxA ={};
+  int [][] coords_for_boxB ={};
 
   Box boxA = new Box();
   Bux boxB = new Bux();
-  collision = ShapeCollision(boxA.getArray(), boxB.getArray());
+  
+  coords_for_boxA = addMidpointsToShape(boxA.getArray());
+  coords_for_boxB = addMidpointsToShape(boxB.getArray());
+  
+  collision = ShapeCollision(coords_for_boxA, coords_for_boxB);
   println("collision? "+collision);
 
   while (collision){
     println("RETRY");
     boxA = new Box();
     boxB = new Bux();
-    collision = ShapeCollision(boxA.getArray(), boxB.getArray());
+    coords_for_boxA = addMidpointsToShape(boxA.getArray());
+    coords_for_boxB = addMidpointsToShape(boxB.getArray());
+    collision = ShapeCollision(coords_for_boxA, coords_for_boxB);
   }
   
   if (!collision){

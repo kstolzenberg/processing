@@ -1,5 +1,5 @@
-int i = 0;
-int j = 0;
+int i = 50;
+int j = 50;
 float r1,r2;
 
 void setup(){
@@ -12,8 +12,8 @@ void setup(){
 
 void draw(){
   float radius = 2;
-  for(i=1; i<=width;i+=radius*2){
-    for(j=1; j<=height; j+=radius*2){
+  for(j=50; j<=height;j+=radius*2){
+    for(i=50; i<=width; i+=radius*2){
       radius++;
       ellipse(i,j,radius,radius);
     }

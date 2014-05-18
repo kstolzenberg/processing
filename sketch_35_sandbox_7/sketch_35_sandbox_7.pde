@@ -77,6 +77,7 @@ class Door{
     m = 5;
   }
   void drawDoor(){
+    //stairs not being included in the object collision?
     fill(232,39,25);
     stroke(0);
     strokeWeight(1);
@@ -84,11 +85,11 @@ class Door{
     ellipse(a+m/2,b+d/2,2,2);
     fill(152,225,253);
     rect(a+m, b+m, c-m*2, d-m*2);
-    //stairs
+    //draw stairs
     fill(80,54,68);
     float q=200;
     float r=250 ;
-    //q = door at bottom, no stair, r = door at 1 step; both will get rewritten by the house objecy
+    //q = door at bottom, no stair, r = door at 1 step; both will get rewritten by the house objecy, stairs drawn btwn q and r
     if(this.b < r){
       for(k=0; k<this.q-this.d; k+=5){
         strokeWeight(1);
@@ -98,7 +99,7 @@ class Door{
   }
   
   int [][] getArray(){
-  int [][] coords_for_Door = { {this.a, this.b}, {this.a+this.c,this.b}, {this.a,this.b+this.d}, {this.a+this.c,this.b+this.d}  };
+  int [][] coords_for_Door = { {this.a, this.b}, {this.a+this.c,this.b}, {this.a,this.b+this.d+(this.r-this.q)}, {this.a+this.c,this.b+this.d+(this.r-this.q)} };
   return coords_for_Door;
   }
 }
@@ -130,7 +131,7 @@ class House{
     door.a = this.x+x3;
     door.b = this.y+y3;
     door.q = this.h-(door.b) + this.y;
-    door.r = this.y+this.h-5;       
+    door.r = this.y+this.h-5;      
   }
   
   void drawHouse(){
@@ -183,20 +184,25 @@ int [][] midpointGenerator(int [] point_1, int [] point_2, int count){
 }
 
 int [][] addMidpointsToShape(int[][]coords_for_shape){
-  coords_for_shape = (int[][])concat(coords_for_shape,midpointGenerator(coords_for_shape[0], coords_for_shape[1], 6));
-  coords_for_shape = (int[][])concat(coords_for_shape,midpointGenerator(coords_for_shape[1], coords_for_shape[3], 6));
-  coords_for_shape = (int[][])concat(coords_for_shape,midpointGenerator(coords_for_shape[0], coords_for_shape[2], 6));
-  coords_for_shape = (int[][])concat(coords_for_shape,midpointGenerator(coords_for_shape[2], coords_for_shape[3], 6));   
+  coords_for_shape = (int[][])concat(coords_for_shape,midpointGenerator(coords_for_shape[0], coords_for_shape[1], 2));
+  coords_for_shape = (int[][])concat(coords_for_shape,midpointGenerator(coords_for_shape[1], coords_for_shape[3], 2));
+  coords_for_shape = (int[][])concat(coords_for_shape,midpointGenerator(coords_for_shape[0], coords_for_shape[2], 2));
+  coords_for_shape = (int[][])concat(coords_for_shape,midpointGenerator(coords_for_shape[2], coords_for_shape[3], 2));   
   return coords_for_shape;
 }
 
 boolean ShapeCollision(int [][] coords_for_Window, int [][] coords_for_Door, int [][] coords_for_Lite){
+ int [][] coords_for_Window_Mid = {};
+ int [][] coords_for_Door_Mid = {};
+ int [][] coords_for_Lite_Mid = {};
+ 
+ coords_for_Window_Mid = addMidpointsToShape(coords_for_Window);
+ coords_for_Door_Mid = addMidpointsToShape(coords_for_Door);
+ coords_for_Lite_Mid = addMidpointsToShape(coords_for_Lite);
   
-  addMidpointsToShape(coords_for_Window);
-  addMidpointsToShape(coords_for_Door);
-  addMidpointsToShape(coords_for_Lite);
+  print2DArray(coords_for_Window_Mid);
   
-  int [][][] checkShapeArr = {coords_for_Window,coords_for_Door, coords_for_Lite}; 
+  int [][][] checkShapeArr = {coords_for_Window_Mid,coords_for_Door_Mid, coords_for_Lite_Mid}; 
   //should condense this check!
    boolean a_to_b;
    boolean a_to_c;
@@ -209,9 +215,16 @@ boolean ShapeCollision(int [][] coords_for_Window, int [][] coords_for_Door, int
     a_to_c = ShapeCollisionOneWay(checkShapeArr[0], checkShapeArr[2]);
     b_to_a = ShapeCollisionOneWay(checkShapeArr[1], checkShapeArr[0]);
     b_to_c = ShapeCollisionOneWay(checkShapeArr[1], checkShapeArr[2]);
+    //most common false
     c_to_b = ShapeCollisionOneWay(checkShapeArr[2], checkShapeArr[1]);
-    c_to_a = ShapeCollisionOneWay(checkShapeArr[2], checkShapeArr[0]);  
-  
+    //most common false
+    c_to_a = ShapeCollisionOneWay(checkShapeArr[2], checkShapeArr[0]);
+    
+
+    println("lite to door:" + c_to_b);
+    println("door to lite:"+ b_to_c);
+    // these print false when they do touch = problem is with ShapeCollisionOneWay
+    
   if (a_to_b || a_to_c || b_to_a || b_to_c || c_to_b || c_to_a){
     return true;
   } else{
@@ -219,19 +232,21 @@ boolean ShapeCollision(int [][] coords_for_Window, int [][] coords_for_Door, int
   }
 }
 
-
-//this boolean doesn't work when one shape is completely within the bounds of another...works best with corners.
-boolean ShapeCollisionOneWay(int [][] coords_for_Window, int [][] coords_for_Door){
+boolean ShapeCollisionOneWay(int [][] coords_for_shape_A, int [][] coords_for_shape_B){
   int i;
-  boolean x_check1, x_check2, y_check1,y_check2;
+  boolean x_check1, x_check2, y_check1, y_check2;
   boolean Inside;
   boolean [] touchArr = {};
+  boolean check_touch = false;
   
-  for (i=0; i<coords_for_Window.length; i++){  
-    x_check1 = coords_for_Window[i][0] >= coords_for_Door[0][0];
-    x_check2 = coords_for_Window[i][0] <= coords_for_Door[3][0];
-    y_check1 = coords_for_Window[i][1] >= coords_for_Door[0][1];
-    y_check2 = coords_for_Window[i][1] <= coords_for_Door[3][1];
+  println("number of points in shape a: "+coords_for_shape_A.length);
+  println("number of points in shape b: "+coords_for_shape_B.length);
+  
+  for (i=0; i<coords_for_shape_A.length; i++){  
+    x_check1 = coords_for_shape_A[i][0] >= coords_for_shape_B[0][0];
+    x_check2 = coords_for_shape_A[i][0] <= coords_for_shape_B[3][0];
+    y_check1 = coords_for_shape_A[i][1] >= coords_for_shape_B[0][1];
+    y_check2 = coords_for_shape_A[i][1] <= coords_for_shape_B[3][1];
     
     if ((x_check1 && x_check2) && (y_check1 && y_check2)){
       Inside = true;
@@ -239,9 +254,14 @@ boolean ShapeCollisionOneWay(int [][] coords_for_Window, int [][] coords_for_Doo
       Inside = false;
     }
     touchArr = (boolean[])append(touchArr, Inside);
-  }  
-  if (touchArr[0] || touchArr [1] || touchArr[2] || touchArr[3] == true){
-    return Touching = true;    
+  }
+  for (i=0; i<touchArr.length; i++){
+    if (touchArr[i] == true){
+      check_touch = true;
+    }
+  }
+  if (check_touch == true){
+    return Touching = true;
   }else{
     return Touching = false;
   }
@@ -254,7 +274,7 @@ void drawArray(){
   Lite lite = new Lite();
   House thisHouse = new House(100,100,100,100,window,door,lite);
   
-  collision = ShapeCollision(lite.getArray(), door.getArray(), window.getArray());
+  collision = ShapeCollision(window.getArray(), door.getArray(), lite.getArray());
   println("Collision? " + collision);
   
   while(collision){
@@ -263,7 +283,7 @@ void drawArray(){
   door = new Door();
   lite = new Lite();
   thisHouse = new House(100,100,100,100,window,door,lite);
-  collision = ShapeCollision(lite.getArray(), door.getArray(), window.getArray());
+  collision = ShapeCollision(window.getArray(), door.getArray(), lite.getArray());
   } 
   
   if (!collision){
