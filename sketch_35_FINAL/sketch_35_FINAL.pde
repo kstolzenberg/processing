@@ -1,4 +1,4 @@
-//success! collision detection fully working!
+//success! collision detection & matrix fully working!
 
 boolean Touching = false;
 boolean collision = true;
@@ -22,15 +22,16 @@ class Window{
   Window(){
     a = 200;
     b = 200;
-    c = 15;
-    d = 30;
+    c = randRange(10,60,5);
+    d = randRange(10,60,5);
     m = 2;
   }
   void drawWindow(){
   stroke(0);
   strokeWeight(1);
-  fill(155,225,253);
+  fill(68,68,68);
   rect(a,b,c,d);
+  fill(191,248,250);
   rect(a+m, b+m, c-m*2, d-m*2);
   }
   //store corners for checking in an array:
@@ -47,15 +48,16 @@ class Lite{
   Lite(){
     a = 200;
     b = 200;
-    c = 40;
-    d = 30;
+    c = randRange(10,60,5);
+    d = randRange(10,60,10);
     m = 2;
   }
   void drawLite(){
   stroke(0);
   strokeWeight(1);
-  fill(152,225,253);
+  fill(68,68,68);
   rect(a,b,c,d);
+  fill(191,248,250);
   rect(a+m, b+m, c-m*2, d-m*2);
   } 
   int [][] getArray(){
@@ -76,15 +78,15 @@ class Door{
   }
   void drawDoor(){
     //stairs not being included in the object collision?
-    fill(232,39,25);
+    fill(150,47,26);
     stroke(0);
     strokeWeight(1);
     rect(a,b,c,d);
     ellipse(a+m/2,b+d/2,2,2);
-    fill(152,225,253);
+    fill(191,248,250);
     rect(a+m, b+m, c-m*2, d-m*2);
     //draw stairs
-    fill(80,54,68);
+    fill(68,68,68);
     float q=200;
     float r=250 ;
     //q = door at bottom, no stair, r = door at 1 step; both will get rewritten by the house objecy, stairs drawn btwn q and r
@@ -133,10 +135,16 @@ class House{
   }
   
   void drawHouse(){
-    fill(26,106,123);
+    int z;
+    fill(190,105,49);
     strokeWeight(2);
     stroke(0);
     rect(x,y,w,h);
+    //siding
+    for(z=this.y; z<this.h+this.y;z+=10){
+      strokeWeight(.5);
+      line(this.x, z, this.x+this.w,z);
+    }
     
     window.drawWindow();
     door.drawDoor();     
@@ -146,7 +154,7 @@ class House{
 
 
 void setup(){
-  size(500,500);
+  size(975,1000);
   background(255);
   smooth();
 
@@ -255,26 +263,38 @@ boolean ShapeCollisionOneWay(int [][] coords_for_shape_A, int [][] coords_for_sh
 
 
 void drawArray(){
-  Window window = new Window();
-  Door door = new Door();
-  Lite lite = new Lite();
-  House thisHouse = new House(100,100,100,100,window,door,lite);
+  for (int i=0; i<height; i+=200){
+    for (int j=0; j<width; j+=200){
+      
+      pushMatrix();
+      
+      Window window = new Window();
+      Door door = new Door();
+      Lite lite = new Lite();
+      House thisHouse = new House(100,100,100,100,window,door,lite);
+      
+      translate(j,i);
+      
+      collision = ShapeCollision(window.getArray(), door.getArray(), lite.getArray());
+      println("Collision? " + collision);
+      
+      while(collision){
+      println("RETRY");
+      window = new Window();
+      door = new Door();
+      lite = new Lite();
+      thisHouse = new House(100,100,100,100,window,door,lite);
+      collision = ShapeCollision(window.getArray(), door.getArray(), lite.getArray());
+      } 
+      
+      if (!collision){
+        thisHouse.drawHouse();
+        println("They didn't touch");
+      }
+      
+      popMatrix();
   
-  collision = ShapeCollision(window.getArray(), door.getArray(), lite.getArray());
-  println("Collision? " + collision);
-  
-  while(collision){
-  println("RETRY");
-  window = new Window();
-  door = new Door();
-  lite = new Lite();
-  thisHouse = new House(100,100,100,100,window,door,lite);
-  collision = ShapeCollision(window.getArray(), door.getArray(), lite.getArray());
-  } 
-  
-  if (!collision){
-    thisHouse.drawHouse();
-    println("They didn't touch");
+    }
   }
 }
 

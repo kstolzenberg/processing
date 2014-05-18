@@ -1,5 +1,3 @@
-//throw out overlap things
-//globals
 int i,j,k,n;
 int l = 0;
 
@@ -121,25 +119,6 @@ class House{
     door.drawDoor();
     lite.drawLite();
   }
-  
-  //check doesn't work :< ///check 2D array notation and look into passing function params.
-  /*void checkOverlap(){
-    boolean touch = true;
-    Window[][] winCorners = {{window.a, window.b},{window.a+window.c,window.b},{window.a,window.b+window.d},{window.a+window.c,window.b+window.d}};
-    Lite[][] liteCorners = {{lite.a,lite.b},{lite.a+lite.c,lite.b},{lite.a,lite.b+lite.d},{lite.a+lite.c,lite.b+lite.d}};
-    Door[][] doorCorners = {{door.a,door.b},{door.a+door.c,door.b},{door.a,door.b+door.d},{door.a+door.c,door.b+door.d}};
-    
-    for(n=0; n<4; n++){
-      if((winCorners[n][n] > liteCorners[n][n] && winCorners[n][n] < liteCorners[n+1][n]) && (winCorners[n][n+1] > liteCorners[n][n+1] && winCorners[n][n+1] < liteCorners[n+1][n+1])){
-        return (touch);
-        println("they touchin!");
-        fill(0,100);
-        this.drawHouse();
-      }else {
-        this.drawHouse();
-      }
-    }
-   }*/
 }
 
 
