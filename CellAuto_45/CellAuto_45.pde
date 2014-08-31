@@ -1,11 +1,12 @@
+//doesn't work well :/
 void setup() {
-  size(1000, 500);
+  size(1000, 1000);
   background(255);
 }
 
 void draw() {
   CA ca = new CA();
-  while(ca.generation < height){
+  while(ca.generation < height/2){
   ca.generate();
   ca.display();
   }
@@ -15,9 +16,11 @@ void draw() {
 class CA {
   //data
   int[] cells;
-  int[] ruleset = {0, 1, 0, 1, 1, 0, 1, 0};
+  //rule #45; write in ruleset backwards!
+  //00101101
+  int[] ruleset = {1,0,1,1,0,1,0,0};
   int[] nextgen;
-  int w = 5;
+  int w = 2;
   int generation = 0;
   //constructor
   CA () {
@@ -48,9 +51,10 @@ class CA {
         fill(255);
       }
     noStroke();
-    rect(i*w, generation*w, w, w);
+    rect(i*w,generation*w, w, w);
     }
    }
+   
    
     int rules(int a, int b, int c){
       String s = ""+a + b + c;
@@ -62,7 +66,7 @@ class CA {
 void keyPressed() {
   int l=0;
   if (keyCode == ENTER) {
-    saveFrame("output"+l+".jpg");
+    saveFrame("output"+2 +".jpg");
     l = l+1;
   }
 }
