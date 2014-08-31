@@ -1,61 +1,69 @@
 void setup() {
-  size(500, 500);
-  noLoop();
+  size(1000, 500);
+  background(255);
 }
+
+void draw() {
+  CA ca = new CA();
+  while(ca.generation < height){
+  ca.generate();
+  ca.display();
+  }
+}
+
 
 class CA {
   //data
   int[] cells;
-  int[] ruleset;
-  int w = 10;
+  int[] ruleset = {0, 1, 0, 1, 1, 0, 1, 0};
+  int[] nextgen;
+  int w = 5;
   int generation = 0;
-
   //constructor
   CA () {
-    int [] cells = new int[width/w];
-    //Wolfram Rule 90
-    int [] ruleset = {
-      0, 1, 0, 1, 1, 0, 1, 0
-    };
-    //set middle as 1? yes all default = 0 except the center one bc standard wolfram model
+    cells = new int[(width/w)];
     for (int i = 0; i<cells.length; i++) {
       cells[i] = 0;
-    };
+    }
     cells[cells.length/2] = 1;
   }
   //functionality
   void generate() {
-    int[] nextgen = new int[cells.length];
-    for (int i = 1; i<cells.length-1; i++) {
+    nextgen = new int[cells.length];
+    for (int i = 1; i < cells.length-1; i++) {
       int left = cells[i-1];
       int me = cells[i];
       int right = cells[i+1];
       nextgen[i] = rules(left, me, right);
     }
     cells = nextgen;
-    generation ++;
+    generation++;
   }
-
-  int rules(int a, int b, int c) {
-    String s = "" + a + b + c;
-    int index = Integer.parseInt(s, 2);
-    return ruleset[index];
-  }
-
-  for (int i=0; i<cells.length; i++) {
-    if (cells[i] == 1) {
-      fill(0);
-    } 
-    else { 
-      fill(255);
-    }
+     
+    void display(){
+    for (int i = 0; i <cells.length; i++) {
+      if (cells[i] == 1) {
+        fill(0);
+      } else {
+        fill(255);
+      }
+    noStroke();
     rect(i*w, generation*w, w, w);
-  }
+    }
+   }
+   
+    int rules(int a, int b, int c){
+      String s = ""+a + b + c;
+      int index = Integer.parseInt(s, 2);
+      return ruleset[index];
+     }
 }
 
-
-void draw() {
-  ca = new CA();
-  ca.generate();
+void keyPressed() {
+  int l=0;
+  if (keyCode == ENTER) {
+    saveFrame("output"+l+".jpg");
+    l = l+1;
+  }
 }
 
