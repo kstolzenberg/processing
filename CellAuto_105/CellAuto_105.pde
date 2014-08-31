@@ -1,7 +1,6 @@
 void setup() {
   size(1000, 1000);
-  //background(251,96,36);
-  background(23,192,204);
+  background(245,128,63);
   noLoop();
 }
 
@@ -17,11 +16,11 @@ void draw() {
 class CA {
   //data
   int[] cells;
-  //rule #110
-  //01101110
-  int[] ruleset = {0, 1, 1, 1, 0, 1, 1, 0};
+  //rule #105
+  //01101001
+  int[] ruleset = {1,0,0,1,0,1,1,0};
   int[] nextgen;
-  int w = 10;
+  int w = 2;
   int generation = 0;
   //constructor
   CA () {
@@ -51,7 +50,7 @@ class CA {
       if (cells[i] == 1) {
         fill(211,42,27);
       } else {
-        fill(23,192,204);
+        fill(245,128,63);
       }
     noStroke();
     rect(i*w, generation*w, w, w);
@@ -68,7 +67,7 @@ class CA {
 void keyPressed() {
   int l=0;
   if (keyCode == ENTER) {
-    saveFrame("output"+8+".jpg");
+    saveFrame("output"+4+".jpg");
     l = l+1;
   }
 }

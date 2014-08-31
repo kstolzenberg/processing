@@ -1,8 +1,6 @@
 void setup() {
-  size(1000, 1000);
-  //background(251,96,36);
-  background(23,192,204);
-  noLoop();
+  size(1000, 500);
+  background(255);
 }
 
 void draw() {
@@ -17,9 +15,7 @@ void draw() {
 class CA {
   //data
   int[] cells;
-  //rule #110
-  //01101110
-  int[] ruleset = {0, 1, 1, 1, 0, 1, 1, 0};
+  int[] ruleset = {0, 1, 0, 1, 1, 0, 1, 0};
   int[] nextgen;
   int w = 10;
   int generation = 0;
@@ -27,11 +23,9 @@ class CA {
   CA () {
     cells = new int[(width/w)];
     for (int i = 0; i<cells.length; i++) {
-      //cells[i] = 0;
-      //set to random initial conditions, rather than typ wolfram
-      cells[i] = int(random(2));
+      cells[i] = 0;
     }
-    //cells[cells.length/2] = 1;
+    cells[cells.length/2] = 1;
   }
   //functionality
   void generate() {
@@ -49,12 +43,12 @@ class CA {
     void display(){
     for (int i = 0; i <cells.length; i++) {
       if (cells[i] == 1) {
-        fill(211,42,27);
+        fill(0);
       } else {
-        fill(23,192,204);
+        fill(255);
       }
     noStroke();
-    rect(i*w, generation*w, w, w);
+    rect(i*w, w^generation, w, w);
     }
    }
    
@@ -68,7 +62,7 @@ class CA {
 void keyPressed() {
   int l=0;
   if (keyCode == ENTER) {
-    saveFrame("output"+8+".jpg");
+    saveFrame("output"+6+".jpg");
     l = l+1;
   }
 }
