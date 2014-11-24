@@ -52,13 +52,13 @@ void draw() {
       if ((board[i][j] == 1)) fill(alive);
       else fill(dead);
       stroke(255);
-      //ellipse or rect(i*w, j*w, w, w);
+      rect(i*w, j*w, w, w);
       //triangle(i*w,j*w,i*w+w/2,j*w+w,i*w+w,j*w);
-      int v = int(random(20));
-      quad(i*w,j*w,
+      //int v = int(random(20));
+      /*quad(i*w,j*w,
            i*w+v*3,j*w+v,
            i*w+v,j*w+v*2,
-           i*w+v*2,j*w*v);
+           i*w+v*2,j*w*v);*/
     }
   }
 }
