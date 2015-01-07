@@ -4,14 +4,16 @@ void setup(){
   lever = loadImage("LEVER.jpg");
   int dimension = lever.width*lever.height;
   lever.loadPixels();
+  //int seed = int(random(lever.pixels));
   for(int i=0; i<dimension;i+=24){
-    int ran = int(random(24));
-    //lever.pixels[i+ran] = color(0);
-    String j = "&&&&&&&";
-    println(lever.pixels[4]);
+    //seed = int(random(lever.pixel));
+    lever.pixels[i]=i*int(random(dimension));
+    }
+    //set(i,i,ran);
+    //int j =int(random(500));
+    //too uniform - pick random pixeks and add random numbers? 
     //lever.pixels[i]= lever.pixels[i]+j;
     //note this accesses a specific pixel location...look at methods!
-  }
   
   lever.updatePixels();
 }
